@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:market_test_project/core/constants/constants.dart';
+import 'package:market_test_project/core/theme/app_fonts.dart';
+import 'package:market_test_project/core/widgets/app_circle_button.dart';
+import 'package:market_test_project/features/home/presentation/widgets/category_food_widget.dart';
 import 'package:market_test_project/gen/assets.gen.dart';
 
 @RoutePage()
@@ -14,18 +18,96 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Home Screen',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.vertical(
+            bottom: Radius.circular(16),
+          ),
         ),
-        Assets.icons.navBarIcons.mainNavBarIcon.svg(
-          colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(15),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 11.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Row(
+                    children: [
+                      Assets.icons.profile.svg(),
+                      SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          'Анна',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.titleh4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ...[
+                  AppCircleButton(
+                    icon: Assets.icons.mark,
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(width: 3),
+                  AppCircleButton(
+                    icon: Assets.icons.bell,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
-      ],
+        actions: const [],
+        leading: const SizedBox.shrink(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              scrollDirection: Axis.horizontal,
+              child: IntrinsicHeight(
+                child: Row(
+                  children: [
+                    for (
+                      var index = 0;
+                      index < categoriesImages.length;
+                      index++
+                    ) ...[
+                      CategoryFoodWidget(
+                        assetGenImage: categoriesImages[index],
+                        foodCategory: categoriesLabels[index],
+                      ),
+                      if (categoriesImages.length != index + 1)
+                        SizedBox(width: 5.w),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            /*  Expanded(
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (ctx, index) => CategoryFoodWidget(
+                  assetGenImage: Assets.images.freshVegetables,
+                  foodCategory: 'Самый сезон! Свежие овощи',
+                ),
+                separatorBuilder: (ctx, index) => SizedBox(width: 5),
+                itemCount: 5,
+              ),
+            ), */
+          ],
+        ),
+      ),
     );
   }
 }

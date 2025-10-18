@@ -80,8 +80,10 @@ class _AppRootScreenState extends State<AppRootScreen> {
                     tabsRouter.navigate(routes[index]);
                   },
                   useLegacyColorScheme: false,
-                  selectedLabelStyle: TextStyles.h2.copyWith(fontSize: 0),
-                  unselectedLabelStyle: TextStyles.h2.copyWith(fontSize: 0),
+                  selectedLabelStyle: TextStyles.labelXS.copyWith(fontSize: 0),
+                  unselectedLabelStyle: TextStyles.labelXS.copyWith(
+                    fontSize: 0,
+                  ),
                   items: List.generate(
                     _labels.length,
                     (index) => index == 2
@@ -122,7 +124,7 @@ class _AppRootScreenState extends State<AppRootScreen> {
           ),
           SizedBox(height: 5.h),
           AnimatedDefaultTextStyle(
-            style: TextStyles.h7.copyWith(
+            style: TextStyles.labelXS.copyWith(
               color: isActive ? ColorStyles.crimson400 : ColorStyles.gray800,
             ),
             duration: standartDuration,

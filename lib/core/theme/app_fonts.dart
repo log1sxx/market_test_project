@@ -4,52 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_colors.dart';
 
 class TextStyles {
-  static String fontFamily = 'Stolzl';
-  static double textHeight = 1.4;
+  static final String _fontFamily = 'Stolzl';
+  static final double _textHeight = 1.4;
 
-  static TextStyle h2 = TextStyle(
+  static TextStyle titleh4 = TextStyle(
     color: ColorStyles.gray800,
-    fontWeight: FontWeight.w600,
-    height: textHeight,
-    fontFamily: fontFamily,
-    fontSize: 18.sp,
-  );
-  static TextStyle h3 = TextStyle(
-    color: ColorStyles.gray800,
-    fontWeight: FontWeight.w400,
-    height: textHeight,
-    fontFamily: fontFamily,
+    fontWeight: FontWeight.w500,
+    height: _textHeight,
+    fontFamily: _fontFamily,
     fontSize: 16.sp,
   );
 
-  static TextStyle h4 = TextStyle(
+  static TextStyle labelXS = TextStyle(
     color: ColorStyles.gray800,
     fontWeight: FontWeight.w400,
-    height: textHeight,
-    fontFamily: fontFamily,
-    fontSize: 14.sp,
-  );
-
-  static TextStyle h5 = TextStyle(
-    color: ColorStyles.gray800,
-    fontWeight: FontWeight.w400,
-    height: textHeight,
-    fontFamily: fontFamily,
-    fontSize: 12.sp,
-  );
-  static TextStyle h6 = TextStyle(
-    color: ColorStyles.gray800,
-    fontWeight: FontWeight.w400,
-    height: textHeight,
-    fontFamily: fontFamily,
-    fontSize: 12.sp,
-  );
-
-  static TextStyle h7 = TextStyle(
-    color: ColorStyles.gray800,
-    fontWeight: FontWeight.w400,
-    height: textHeight,
-    fontFamily: fontFamily,
+    height: _textHeight,
+    fontFamily: _fontFamily,
     fontSize: 10.sp,
   );
 }

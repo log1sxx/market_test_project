@@ -68,12 +68,57 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/cheese.png
+  AssetGenImage get cheese => const AssetGenImage('assets/images/cheese.png');
+
+  /// File path: assets/images/country_kitchen.png
+  AssetGenImage get countryKitchen =>
+      const AssetGenImage('assets/images/country_kitchen.png');
+
+  /// File path: assets/images/delicacies.png
+  AssetGenImage get delicacies =>
+      const AssetGenImage('assets/images/delicacies.png');
+
+  /// File path: assets/images/dinner.png
+  AssetGenImage get dinner => const AssetGenImage('assets/images/dinner.png');
+
+  /// File path: assets/images/discount_of_the_day.png
+  AssetGenImage get discountOfTheDay =>
+      const AssetGenImage('assets/images/discount_of_the_day.png');
+
   /// File path: assets/images/edit_profile_image.png
   AssetGenImage get editProfileImage =>
       const AssetGenImage('assets/images/edit_profile_image.png');
 
+  /// File path: assets/images/fill_the_fridge.png
+  AssetGenImage get fillTheFridge =>
+      const AssetGenImage('assets/images/fill_the_fridge.png');
+
+  /// File path: assets/images/fresh_vegetables.png
+  AssetGenImage get freshVegetables =>
+      const AssetGenImage('assets/images/fresh_vegetables.png');
+
+  /// File path: assets/images/healthy_food.png
+  AssetGenImage get healthyFood =>
+      const AssetGenImage('assets/images/healthy_food.png');
+
+  /// File path: assets/images/worlds_kitchen.png
+  AssetGenImage get worldsKitchen =>
+      const AssetGenImage('assets/images/worlds_kitchen.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [editProfileImage];
+  List<AssetGenImage> get values => [
+    cheese,
+    countryKitchen,
+    delicacies,
+    dinner,
+    discountOfTheDay,
+    editProfileImage,
+    fillTheFridge,
+    freshVegetables,
+    healthyFood,
+    worldsKitchen,
+  ];
 }
 
 class $AssetsTranslationsGen {

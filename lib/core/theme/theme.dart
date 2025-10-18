@@ -47,8 +47,8 @@ var bottomNavBarTheme = BottomNavigationBarThemeData(
 );
 
 var appBarTheme = const AppBarTheme(
-  backgroundColor: ColorStyles.secondaryBlue,
-  surfaceTintColor: ColorStyles.secondaryBlue,
+  backgroundColor: ColorStyles.gray100,
+  surfaceTintColor: ColorStyles.gray100,
 );
 
 var inputDecorationTheme = InputDecorationTheme(
