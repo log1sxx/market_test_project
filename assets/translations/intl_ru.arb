@@ -1,6 +1,9 @@
 {
   "@@locale": "ru",
-  "app_title": "Моё приложение",
+  "navbar_main": "Главная",
+  "navbar_delivery": "Доставка",
+  "navbar_markets": "Магазины",
+  "navbar_contact": "Связаться",
   "hello_world": "Привет, мир!",
   "@hello_world": {
     "description": "Приветствие, отображаемое пользователю."

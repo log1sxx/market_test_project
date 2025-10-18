@@ -86,13 +86,13 @@ flutter:
   fonts:
     - family: Stolzl
       fonts:
-        - asset: assets/fonts/stolzl-regular.ttf
+        - asset: assets/fonts/stolzl_regular.otf
           weight: 400
-        - asset: assets/fonts/stolzl-medium.ttf
+        - asset: assets/fonts/stolzl_medium.otf
           weight: 500
-        - asset: assets/fonts/stolzl-bold.ttf
+        - asset: assets/fonts/stolzl_bold.otf
           weight: 700
-        - asset: assets/fonts/stolzl-black.ttf
+        - asset: assets/fonts/stolzl_black.otf
           weight: 900
 
 flutter_intl:

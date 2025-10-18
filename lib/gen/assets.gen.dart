@@ -1,3 +1,5 @@
+// dart format width=80
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -15,29 +17,52 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
-  /// File path: assets/fonts/Montserrat-Black.ttf
-  String get montserratBlack => 'assets/fonts/Montserrat-Black.ttf';
+  /// File path: assets/fonts/stolzl_black.otf
+  String get stolzlBlack => 'assets/fonts/stolzl_black.otf';
 
-  /// File path: assets/fonts/Montserrat-Bold.ttf
-  String get montserratBold => 'assets/fonts/Montserrat-Bold.ttf';
+  /// File path: assets/fonts/stolzl_bold.otf
+  String get stolzlBold => 'assets/fonts/stolzl_bold.otf';
 
-  /// File path: assets/fonts/Montserrat-Medium.ttf
-  String get montserratMedium => 'assets/fonts/Montserrat-Medium.ttf';
+  /// File path: assets/fonts/stolzl_medium.otf
+  String get stolzlMedium => 'assets/fonts/stolzl_medium.otf';
 
-  /// File path: assets/fonts/Montserrat-Regular.ttf
-  String get montserratRegular => 'assets/fonts/Montserrat-Regular.ttf';
+  /// File path: assets/fonts/stolzl_regular.otf
+  String get stolzlRegular => 'assets/fonts/stolzl_regular.otf';
 
   /// List of all assets
-  List<String> get values =>
-      [montserratBlack, montserratBold, montserratMedium, montserratRegular];
+  List<String> get values => [
+    stolzlBlack,
+    stolzlBold,
+    stolzlMedium,
+    stolzlRegular,
+  ];
 }
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/add_to_card.svg
+  SvgGenImage get addToCard =>
+      const SvgGenImage('assets/icons/add_to_card.svg');
+
+  /// File path: assets/icons/bell.svg
+  SvgGenImage get bell => const SvgGenImage('assets/icons/bell.svg');
+
+  /// File path: assets/icons/fire.svg
+  SvgGenImage get fire => const SvgGenImage('assets/icons/fire.svg');
+
+  /// File path: assets/icons/mark.svg
+  SvgGenImage get mark => const SvgGenImage('assets/icons/mark.svg');
+
   /// Directory path: assets/icons/nav_bar_icons
   $AssetsIconsNavBarIconsGen get navBarIcons =>
       const $AssetsIconsNavBarIconsGen();
+
+  /// File path: assets/icons/profile.svg
+  SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [addToCard, bell, fire, mark, profile];
 }
 
 class $AssetsImagesGen {
@@ -67,25 +92,33 @@ class $AssetsTranslationsGen {
 class $AssetsIconsNavBarIconsGen {
   const $AssetsIconsNavBarIconsGen();
 
-  /// File path: assets/icons/nav_bar_icons/home_nav_bar_icon.svg
-  SvgGenImage get homeNavBarIcon =>
-      const SvgGenImage('assets/icons/nav_bar_icons/home_nav_bar_icon.svg');
+  /// File path: assets/icons/nav_bar_icons/contact_nav_bar_icon.svg
+  SvgGenImage get contactNavBarIcon =>
+      const SvgGenImage('assets/icons/nav_bar_icons/contact_nav_bar_icon.svg');
 
-  /// File path: assets/icons/nav_bar_icons/map_nav_bar_icon.svg
-  SvgGenImage get mapNavBarIcon =>
-      const SvgGenImage('assets/icons/nav_bar_icons/map_nav_bar_icon.svg');
+  /// File path: assets/icons/nav_bar_icons/delivery_nav_bar_icon.svg
+  SvgGenImage get deliveryNavBarIcon =>
+      const SvgGenImage('assets/icons/nav_bar_icons/delivery_nav_bar_icon.svg');
 
-  /// File path: assets/icons/nav_bar_icons/profile_nav_bar_icon.svg
-  SvgGenImage get profileNavBarIcon =>
-      const SvgGenImage('assets/icons/nav_bar_icons/profile_nav_bar_icon.svg');
+  /// File path: assets/icons/nav_bar_icons/main_nav_bar_icon.svg
+  SvgGenImage get mainNavBarIcon =>
+      const SvgGenImage('assets/icons/nav_bar_icons/main_nav_bar_icon.svg');
+
+  /// File path: assets/icons/nav_bar_icons/market_nav_bar_icon.svg
+  SvgGenImage get marketNavBarIcon =>
+      const SvgGenImage('assets/icons/nav_bar_icons/market_nav_bar_icon.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [homeNavBarIcon, mapNavBarIcon, profileNavBarIcon];
+  List<SvgGenImage> get values => [
+    contactNavBarIcon,
+    deliveryNavBarIcon,
+    mainNavBarIcon,
+    marketNavBarIcon,
+  ];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
@@ -98,12 +131,14 @@ class AssetGenImage {
     this._assetName, {
     this.size,
     this.flavors = const {},
+    this.animation,
   });
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -126,7 +161,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -158,15 +193,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -174,18 +202,24 @@ class AssetGenImage {
   String get keyName => _assetName;
 }
 
-class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
+}
+
+class SvgGenImage {
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
+
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -206,6 +240,7 @@ class SvgGenImage {
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     _svg.SvgTheme? theme,
+    _svg.ColorMapper? colorMapper,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
@@ -225,6 +260,7 @@ class SvgGenImage {
         assetBundle: bundle,
         packageName: package,
         theme: theme,
+        colorMapper: colorMapper,
       );
     }
     return _svg.SvgPicture(
@@ -239,7 +275,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

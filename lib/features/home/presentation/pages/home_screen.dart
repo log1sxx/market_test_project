@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Home Screen',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
         ),
-        Assets.icons.navBarIcons.homeNavBarIcon.svg(
+        Assets.icons.navBarIcons.mainNavBarIcon.svg(
           colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
         ),
       ],

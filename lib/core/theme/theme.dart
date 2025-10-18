@@ -7,18 +7,19 @@ final defaultTheme = ThemeData(
   inputDecorationTheme: inputDecorationTheme,
   bottomNavigationBarTheme: bottomNavBarTheme,
   buttonTheme: buttonThemeData,
+  scaffoldBackgroundColor: ColorStyles.gray100,
   colorScheme: ColorScheme(
-    primaryContainer: AppColors.white.withOpacity(0.15),
-    secondaryContainer: AppColors.white.withOpacity(0.1),
-    onSecondaryContainer: AppColors.white,
+    primaryContainer: ColorStyles.white.withValues(alpha: 0.15),
+    secondaryContainer: ColorStyles.white.withValues(alpha: 0.1),
+    onSecondaryContainer: ColorStyles.white,
     brightness: Brightness.dark,
-    primary: AppColors.primaryBlue,
-    onPrimary: AppColors.white,
-    secondary: AppColors.secondaryBlue,
-    onSecondary: AppColors.black,
-    error: AppColors.white,
-    onError: AppColors.white,
-    surface: AppColors.white,
+    primary: ColorStyles.primaryBlue,
+    onPrimary: ColorStyles.white,
+    secondary: ColorStyles.secondaryBlue,
+    onSecondary: ColorStyles.black,
+    error: ColorStyles.white,
+    onError: ColorStyles.white,
+    surface: ColorStyles.white,
     onSurface: Colors.black,
   ),
 );
@@ -26,13 +27,13 @@ final defaultTheme = ThemeData(
 var buttonThemeData = const ButtonThemeData(
   colorScheme: ColorScheme(
     brightness: Brightness.dark,
-    primary: AppColors.green,
-    onPrimary: AppColors.white,
-    secondary: AppColors.white,
-    onSecondary: AppColors.white,
-    error: AppColors.white,
-    onError: AppColors.white,
-    surface: AppColors.white,
+    primary: ColorStyles.green,
+    onPrimary: ColorStyles.white,
+    secondary: ColorStyles.white,
+    onSecondary: ColorStyles.white,
+    error: ColorStyles.white,
+    onError: ColorStyles.white,
+    surface: ColorStyles.white,
     onSurface: Colors.white,
   ),
 );
@@ -40,22 +41,22 @@ var buttonThemeData = const ButtonThemeData(
 var bottomNavBarTheme = BottomNavigationBarThemeData(
   /* selectedLabelStyle: UIFonts.selectedLabelStyle,
     unselectedLabelStyle:
-        UIFonts.selectedLabelStyle.copyWith(color: AppColors.white.withOpacity(0.6)), */
-  selectedItemColor: AppColors.orange,
-  unselectedItemColor: AppColors.white.withOpacity(0.6),
+        UIFonts.selectedLabelStyle.copyWith(color: ColorStyles.white.withOpacity(0.6)), */
+  selectedItemColor: ColorStyles.orange,
+  unselectedItemColor: ColorStyles.white.withOpacity(0.6),
 );
 
 var appBarTheme = const AppBarTheme(
-  backgroundColor: AppColors.secondaryBlue,
-  surfaceTintColor: AppColors.secondaryBlue,
+  backgroundColor: ColorStyles.secondaryBlue,
+  surfaceTintColor: ColorStyles.secondaryBlue,
 );
 
 var inputDecorationTheme = InputDecorationTheme(
-  fillColor: AppColors.fillColor,
+  fillColor: ColorStyles.fillColor,
   errorStyle: const TextStyle(color: Colors.red, height: 2),
   isDense: true,
   border: defaultBorder,
-  iconColor: AppColors.orange,
+  iconColor: ColorStyles.orange,
   enabledBorder: defaultBorder,
   focusedBorder: focusedBorder,
   focusedErrorBorder: errorBorder,
@@ -67,7 +68,7 @@ var errorBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(20),
 );
 var focusedBorder = OutlineInputBorder(
-  borderSide: const BorderSide(width: 1, color: AppColors.green),
+  borderSide: const BorderSide(width: 1, color: ColorStyles.green),
   borderRadius: BorderRadius.circular(20),
 );
 var defaultBorder = OutlineInputBorder(

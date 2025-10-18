@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -60,14 +64,29 @@ class S {
     );
   }
 
-  /// `Hello, World!`
-  String get hello_world {
+  /// `Main`
+  String get navbar_main {
+    return Intl.message('Main', name: 'navbar_main', desc: '', args: []);
+  }
+
+  /// `Delivery`
+  String get navbar_delivery {
     return Intl.message(
-      'Hello, World!',
-      name: 'hello_world',
-      desc: 'Greeting displayed to the user.',
+      'Delivery',
+      name: 'navbar_delivery',
+      desc: '',
       args: [],
     );
+  }
+
+  /// `Markets`
+  String get navbar_markets {
+    return Intl.message('Markets', name: 'navbar_markets', desc: '', args: []);
+  }
+
+  /// `Contact`
+  String get navbar_contact {
+    return Intl.message('Contact', name: 'navbar_contact', desc: '', args: []);
   }
 }
 
