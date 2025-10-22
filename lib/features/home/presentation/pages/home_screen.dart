@@ -5,6 +5,8 @@ import 'package:market_test_project/core/constants/constants.dart';
 import 'package:market_test_project/core/theme/app_fonts.dart';
 import 'package:market_test_project/core/widgets/app_circle_button.dart';
 import 'package:market_test_project/features/banners/presentation/widgets/banners_carousel_widget.dart';
+import 'package:market_test_project/features/goods/presentation/widgets/products_horizontal_list.dart';
+import 'package:market_test_project/features/goods/presentation/widgets/products_title.dart';
 import 'package:market_test_project/features/home/presentation/widgets/category_food_widget.dart';
 import 'package:market_test_project/gen/assets.gen.dart';
 
@@ -97,18 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 15),
             const BannersCarouselWidget(),
             const SizedBox(height: 25),
-            /*  Expanded(
-              child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, index) => CategoryFoodWidget(
-                  assetGenImage: Assets.images.freshVegetables,
-                  foodCategory: 'Самый сезон! Свежие овощи',
-                ),
-                separatorBuilder: (ctx, index) => SizedBox(width: 5),
-                itemCount: 5,
-              ),
-            ), */
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: const ProductsTitle(),
+            ),
+            const SizedBox(height: 10),
+            const ProductsHorizontalList(),
           ],
         ),
       ),

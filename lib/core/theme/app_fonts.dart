@@ -22,4 +22,12 @@ class TextStyles {
     fontFamily: _fontFamily,
     fontSize: 10.sp,
   );
+
+  static TextStyle labelS = TextStyle(
+    color: ColorStyles.crimson400,
+    fontWeight: FontWeight.w400,
+    height: _textHeight,
+    fontFamily: _fontFamily,
+    fontSize: 12.sp,
+  );
 }

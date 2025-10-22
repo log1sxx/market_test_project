@@ -4,6 +4,7 @@ class ColorStyles {
   static const Color white = Colors.white;
   static const Color fillColor = Color(0xffEFEFEF);
   static const Color gray800 = Color(0xff1F2029);
+  static const Color gray700 = Color(0xff2A2C39);
   static const Color gray100 = Color(0xffF2F3F8);
   static const Color gray200 = Color(0xffBEBFC8);
   static const Color crimson400 = Color(0xffE50D32);
