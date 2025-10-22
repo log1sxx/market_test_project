@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:market_test_project/core/widgets/app_horizontal_list.dart';
+import 'package:market_test_project/features/history/domain/entities/history_entity.dart';
 import 'package:market_test_project/features/history/presentation/bloc/histories_cubit.dart';
 import 'package:market_test_project/features/history/presentation/bloc/histories_state.dart';
 import 'package:market_test_project/features/history/presentation/widgets/history_widget.dart';
@@ -30,24 +31,9 @@ class _HistoriesHorizontalListState extends State<HistoriesHorizontalList> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is HistoriesLoaded) {
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            scrollDirection: Axis.horizontal,
-            child: IntrinsicHeight(
-              child: Row(
-                children: [
-                  for (
-                    var index = 0;
-                    index < state.histories.length;
-                    index++
-                  ) ...[
-                    HistoryWidget(history: state.histories[index]),
-                    if (state.histories.length != index + 1)
-                      SizedBox(width: 10.w),
-                  ],
-                ],
-              ),
-            ),
+          return AppHorizontalList<HistoryEntity>(
+            items: state.histories,
+            itemBuilder: (context, item, index) => HistoryWidget(history: item),
           );
         }
         return SizedBox(
