@@ -16,6 +16,16 @@ import 'package:logger/logger.dart' as _i974;
 import 'package:market_test_project/core/di/service_locator.dart' as _i450;
 import 'package:market_test_project/core/network/api_client.dart' as _i888;
 import 'package:market_test_project/core/routes/app_router.dart' as _i203;
+import 'package:market_test_project/features/banners/data/datasources/banners_remote_datasource.dart'
+    as _i1008;
+import 'package:market_test_project/features/banners/data/repositories/banners_repository_impl.dart'
+    as _i1036;
+import 'package:market_test_project/features/banners/domain/repositories/banners_repository.dart'
+    as _i332;
+import 'package:market_test_project/features/banners/domain/usecases/get_banner_usecase.dart'
+    as _i609;
+import 'package:market_test_project/features/banners/presentation/bloc/banners_cubit.dart'
+    as _i228;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -35,7 +45,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i974.Logger>(() => loggerModule.logger());
     gh.singleton<_i203.AppRouter>(() => _i203.AppRouter());
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
+    gh.lazySingleton<_i1008.BannersRemoteDatasource>(
+      () => _i1008.BannersRemoteDatasourceImpl(gh<_i361.Dio>()),
+    );
     gh.factory<_i888.ApiClient>(() => _i888.ApiClient(gh<_i361.Dio>()));
+    gh.factory<_i332.BannersRepository>(
+      () => _i1036.BannersRepositoryImpl(gh<_i1008.BannersRemoteDatasource>()),
+    );
+    gh.factory<_i609.GetBannerUsecase>(
+      () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
+    );
+    gh.singleton<_i228.BannersCubit>(
+      () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
+    );
     return this;
   }
 }

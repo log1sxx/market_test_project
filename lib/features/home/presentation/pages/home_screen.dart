@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:market_test_project/core/constants/constants.dart';
 import 'package:market_test_project/core/theme/app_fonts.dart';
 import 'package:market_test_project/core/widgets/app_circle_button.dart';
+import 'package:market_test_project/features/banners/presentation/widgets/banners_carousel_widget.dart';
 import 'package:market_test_project/features/home/presentation/widgets/category_food_widget.dart';
 import 'package:market_test_project/gen/assets.gen.dart';
 
@@ -93,6 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 15),
+            const BannersCarouselWidget(),
+            const SizedBox(height: 25),
             /*  Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
