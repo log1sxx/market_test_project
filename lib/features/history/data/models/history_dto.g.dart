@@ -6,7 +6,16 @@ part of 'history_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-HistoryDTO _$HistoryDTOFromJson(Map<String, dynamic> json) => HistoryDTO(
+HistoriesDTO _$HistoriesDTOFromJson(Map<String, dynamic> json) => HistoriesDTO(
+  histories: (json['story'] as List<dynamic>)
+      .map((e) => History.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$HistoriesDTOToJson(HistoriesDTO instance) =>
+    <String, dynamic>{'story': instance.histories};
+
+History _$HistoryFromJson(Map<String, dynamic> json) => History(
   id: (json['id'] as num).toInt(),
   previewImage: json['preview_image'] as String,
   viewed: json['viewed'] as bool,
@@ -21,17 +30,16 @@ HistoryDTO _$HistoryDTOFromJson(Map<String, dynamic> json) => HistoryDTO(
       .toList(),
 );
 
-Map<String, dynamic> _$HistoryDTOToJson(HistoryDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'preview_image': instance.previewImage,
-      'viewed': instance.viewed,
-      'is_bookmark': instance.isBookmark,
-      'position': instance.position,
-      'title': instance.title,
-      'slides': instance.slides.map((e) => e.toJson()).toList(),
-      'last_page': instance.lastPage.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$HistoryToJson(History instance) => <String, dynamic>{
+  'id': instance.id,
+  'preview_image': instance.previewImage,
+  'viewed': instance.viewed,
+  'is_bookmark': instance.isBookmark,
+  'position': instance.position,
+  'title': instance.title,
+  'slides': instance.slides.map((e) => e.toJson()).toList(),
+  'last_page': instance.lastPage.map((e) => e.toJson()).toList(),
+};
 
 Slide _$SlideFromJson(Map<String, dynamic> json) => Slide(
   id: (json['id'] as num).toInt(),

@@ -9,21 +9,24 @@ class ProductsTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        AppCircleButton(
-          icon: Assets.icons.fire,
-          padding: 5,
-          buttonSize: 24,
-          radius: 8,
-          backgroundColor: ColorStyles.crimson400,
-        ),
-        const SizedBox(width: 10),
-        Text(
-          'Хит продаж',
-          style: TextStyles.titleh4.copyWith(color: ColorStyles.gray700),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        children: [
+          AppCircleButton(
+            icon: Assets.icons.fire,
+            padding: 5,
+            buttonSize: 24,
+            radius: 8,
+            backgroundColor: ColorStyles.crimson400,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            'Хит продаж',
+            style: TextStyles.titleh4.copyWith(color: ColorStyles.gray700),
+          ),
+        ],
+      ),
     );
   }
 }

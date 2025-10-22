@@ -36,6 +36,16 @@ import 'package:market_test_project/features/goods/domain/usecases/get_products_
     as _i305;
 import 'package:market_test_project/features/goods/presentation/bloc/products_cubit.dart'
     as _i257;
+import 'package:market_test_project/features/history/data/datasources/history_remote_datasource.dart'
+    as _i723;
+import 'package:market_test_project/features/history/data/repositories/histories_repository_impl.dart'
+    as _i453;
+import 'package:market_test_project/features/history/domain/repositories/histories_repository.dart'
+    as _i6;
+import 'package:market_test_project/features/history/domain/usecases/get_histories_usecase.dart'
+    as _i250;
+import 'package:market_test_project/features/history/presentation/bloc/histories_cubit.dart'
+    as _i158;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -58,6 +68,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i718.GoodsRemoteDatasource>(
       () => _i718.GoodsRemoteDatasourceImpl(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i723.HistoryRemoteDatasource>(
+      () => _i723.HistoryRemoteDatasourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i1008.BannersRemoteDatasource>(
       () => _i1008.BannersRemoteDatasourceImpl(gh<_i361.Dio>()),
     );
@@ -68,17 +81,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i78.ProductsRepository>(
       () => _i645.ProductsRepositoryImpl(gh<_i718.GoodsRemoteDatasource>()),
     );
+    gh.factory<_i6.HistoriesRepository>(
+      () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
+    );
     gh.factory<_i609.GetBannerUsecase>(
       () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
     );
     gh.factory<_i305.GetProductsUsecase>(
       () => _i305.GetProductsUsecase(gh<_i78.ProductsRepository>()),
     );
+    gh.factory<_i250.GetHistoriesUsecase>(
+      () => _i250.GetHistoriesUsecase(gh<_i6.HistoriesRepository>()),
+    );
     gh.singleton<_i228.BannersCubit>(
       () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
     );
     gh.singleton<_i257.ProductsCubit>(
       () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
+    );
+    gh.singleton<_i158.HistoriesCubit>(
+      () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),
     );
     return this;
   }

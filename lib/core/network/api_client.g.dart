@@ -76,12 +76,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HistoryDTO> getHistory() async {
+  Future<HistoriesDTO> getHistory() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HistoryDTO>(
+    final _options = _setStreamType<HistoriesDTO>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -92,9 +92,9 @@ class _ApiClient implements ApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late HistoryDTO _value;
+    late HistoriesDTO _value;
     try {
-      _value = HistoryDTO.fromJson(_result.data!);
+      _value = HistoriesDTO.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

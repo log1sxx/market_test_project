@@ -20,5 +20,5 @@ abstract class ApiClient {
   Future<ProductsDTO> getProducts();
 
   @GET(ApiPath.histories)
-  Future<HistoryDTO> getHistory();
+  Future<HistoriesDTO> getHistory();
 }

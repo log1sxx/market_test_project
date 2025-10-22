@@ -1,8 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'history_dto.g.dart';
 
+@JsonSerializable()
+class HistoriesDTO {
+  @JsonKey(name: 'story')
+  final List<History> histories;
+
+  HistoriesDTO({required this.histories});
+
+  factory HistoriesDTO.fromJson(Map<String, dynamic> json) =>
+      _$HistoriesDTOFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HistoriesDTOToJson(this);
+}
+
 @JsonSerializable(explicitToJson: true)
-class HistoryDTO {
+class History {
   final int id;
   @JsonKey(name: 'preview_image')
   final String previewImage;
@@ -15,7 +28,7 @@ class HistoryDTO {
   @JsonKey(name: 'last_page')
   final List<LastPage> lastPage;
 
-  HistoryDTO({
+  History({
     required this.id,
     required this.previewImage,
     required this.viewed,
@@ -26,9 +39,9 @@ class HistoryDTO {
     required this.lastPage,
   });
 
-  factory HistoryDTO.fromJson(Map<String, dynamic> json) =>
-      _$HistoryDTOFromJson(json);
-  Map<String, dynamic> toJson() => _$HistoryDTOToJson(this);
+  factory History.fromJson(Map<String, dynamic> json) =>
+      _$HistoryFromJson(json);
+  Map<String, dynamic> toJson() => _$HistoryToJson(this);
 }
 
 @JsonSerializable()

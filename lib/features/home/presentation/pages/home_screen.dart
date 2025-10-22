@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:market_test_project/core/constants/constants.dart';
 import 'package:market_test_project/core/theme/app_fonts.dart';
 import 'package:market_test_project/core/widgets/app_circle_button.dart';
 import 'package:market_test_project/features/banners/presentation/widgets/banners_carousel_widget.dart';
 import 'package:market_test_project/features/goods/presentation/widgets/products_horizontal_list.dart';
 import 'package:market_test_project/features/goods/presentation/widgets/products_title.dart';
-import 'package:market_test_project/features/home/presentation/widgets/category_food_widget.dart';
+import 'package:market_test_project/features/history/presentation/widgets/histories_horizontal_list.dart';
 import 'package:market_test_project/gen/assets.gen.dart';
 
 @RoutePage()
@@ -74,35 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              scrollDirection: Axis.horizontal,
-              child: IntrinsicHeight(
-                child: Row(
-                  children: [
-                    for (
-                      var index = 0;
-                      index < categoriesImages.length;
-                      index++
-                    ) ...[
-                      CategoryFoodWidget(
-                        assetGenImage: categoriesImages[index],
-                        foodCategory: categoriesLabels[index],
-                      ),
-                      if (categoriesImages.length != index + 1)
-                        SizedBox(width: 5.w),
-                    ],
-                  ],
-                ),
-              ),
-            ),
+            const HistoriesHorizontalList(),
             const SizedBox(height: 15),
             const BannersCarouselWidget(),
             const SizedBox(height: 25),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: const ProductsTitle(),
-            ),
+            const ProductsTitle(),
             const SizedBox(height: 10),
             const ProductsHorizontalList(),
           ],
