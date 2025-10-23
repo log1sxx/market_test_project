@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AppImageNetwork extends StatefulWidget {
@@ -18,21 +19,19 @@ class _AppImageNetworkState extends State<AppImageNetwork> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadiusGeometry.circular(widget.borderRadius),
-      child: Image.network(
-        widget.imageUrl,
+      child: CachedNetworkImage(
+        imageUrl: widget.imageUrl,
         fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
+        progressIndicatorBuilder: (context, child, loadingProgress) {
           return Center(
             child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
+              value: loadingProgress.totalSize != null
+                  ? loadingProgress.downloaded / loadingProgress.totalSize!
                   : null,
             ),
           );
         },
-        errorBuilder: (context, error, stackTrace) {
+        errorWidget: (context, error, stackTrace) {
           return Icon(
             Icons.no_photography_sharp,
             color: Theme.of(context).primaryColorLight,

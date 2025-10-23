@@ -15,10 +15,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     as _i163;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker/internet_connection_checker.dart'
+    as _i973;
 import 'package:logger/logger.dart' as _i974;
 import 'package:market_test_project/core/di/service_locator.dart' as _i450;
 import 'package:market_test_project/core/network/api_client.dart' as _i888;
 import 'package:market_test_project/core/routes/app_router.dart' as _i203;
+import 'package:market_test_project/features/banners/data/datasources/banners_local_datasource.dart'
+    as _i926;
 import 'package:market_test_project/features/banners/data/datasources/banners_remote_datasource.dart'
     as _i1008;
 import 'package:market_test_project/features/banners/data/repositories/banners_repository_impl.dart'
@@ -97,6 +101,7 @@ extension GetItInjectableX on _i174.GetIt {
     final flutterLocalNotificationsPluginModule =
         _$FlutterLocalNotificationsPluginModule();
     final loggerModule = _$LoggerModule();
+    final internetCheckerModule = _$InternetCheckerModule();
     final dioModule = _$DioModule();
     await gh.singletonAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.sp,
@@ -108,6 +113,9 @@ extension GetItInjectableX on _i174.GetIt {
           flutterLocalNotificationsPluginModule.flutterLocalNotificationsPlugin,
     );
     gh.singleton<_i974.Logger>(() => loggerModule.logger());
+    gh.singleton<_i973.InternetConnectionChecker>(
+      () => internetCheckerModule.internetConnectionChecker(),
+    );
     gh.singleton<_i203.AppRouter>(() => _i203.AppRouter());
     gh.singleton<_i1030.WebSocketService>(() => _i1030.WebSocketService());
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
@@ -124,9 +132,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1008.BannersRemoteDatasourceImpl(gh<_i361.Dio>()),
     );
     gh.factory<_i888.ApiClient>(() => _i888.ApiClient(gh<_i361.Dio>()));
-    gh.factory<_i332.BannersRepository>(
-      () => _i1036.BannersRepositoryImpl(gh<_i1008.BannersRemoteDatasource>()),
-    );
     gh.factory<_i78.ProductsRepository>(
       () => _i645.ProductsRepositoryImpl(gh<_i718.GoodsRemoteDatasource>()),
     );
@@ -145,6 +150,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i310.SendMessage>(
       () => _i310.SendMessage(gh<_i638.ChatRepository>()),
     );
+    gh.lazySingleton<_i926.BannersLocalDatasource>(
+      () => _i926.BannersRemoteDatasourceImpl(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i106.LocalNotificationsRepository>(
       () => _i623.LocalNotificationsServiceImpl(
         gh<_i163.FlutterLocalNotificationsPlugin>(),
@@ -153,17 +161,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i6.HistoriesRepository>(
       () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
     );
-    gh.factory<_i609.GetBannerUsecase>(
-      () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
+    gh.factory<_i332.BannersRepository>(
+      () => _i1036.BannersRepositoryImpl(
+        gh<_i1008.BannersRemoteDatasource>(),
+        gh<_i926.BannersLocalDatasource>(),
+        gh<_i973.InternetConnectionChecker>(),
+        gh<_i460.SharedPreferences>(),
+      ),
     );
     gh.factory<_i305.GetProductsUsecase>(
       () => _i305.GetProductsUsecase(gh<_i78.ProductsRepository>()),
     );
     gh.factory<_i250.GetHistoriesUsecase>(
       () => _i250.GetHistoriesUsecase(gh<_i6.HistoriesRepository>()),
-    );
-    gh.singleton<_i228.BannersCubit>(
-      () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
     );
     gh.factory<_i441.GetFcmToken>(
       () => _i441.GetFcmToken(gh<_i220.NotificationRepository>()),
@@ -189,6 +199,9 @@ extension GetItInjectableX on _i174.GetIt {
         connectToChatUsecase: gh<_i267.ConnectToChatUsecase>(),
       ),
     );
+    gh.factory<_i609.GetBannerUsecase>(
+      () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
+    );
     gh.singleton<_i158.HistoriesCubit>(
       () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),
     );
@@ -197,6 +210,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i441.GetFcmToken>(),
         gh<_i66.OnMessageReceived>(),
       ),
+    );
+    gh.singleton<_i228.BannersCubit>(
+      () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
     );
     return this;
   }
@@ -210,5 +226,7 @@ class _$FlutterLocalNotificationsPluginModule
     extends _i450.FlutterLocalNotificationsPluginModule {}
 
 class _$LoggerModule extends _i450.LoggerModule {}
+
+class _$InternetCheckerModule extends _i450.InternetCheckerModule {}
 
 class _$DioModule extends _i450.DioModule {}

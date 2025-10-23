@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:logger/logger.dart';
 import 'package:market_test_project/core/di/service_locator.config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,4 +44,11 @@ abstract class DioModule {
 abstract class LoggerModule {
   @singleton
   Logger logger() => Logger();
+}
+
+@module
+abstract class InternetCheckerModule {
+  @singleton
+  InternetConnectionChecker internetConnectionChecker() =>
+      InternetConnectionChecker.instance;
 }
