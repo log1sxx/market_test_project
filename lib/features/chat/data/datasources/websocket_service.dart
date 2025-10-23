@@ -16,7 +16,21 @@ class WebSocketService {
     _channel = WebSocketChannel.connect(Uri.parse(url));
     _channel.stream.listen(
       (data) {
-        final message = MessageDTO.fromJson(jsonDecode(data));
+        MessageDTO message;
+        if (data.toString().contains('{')) {
+          message = MessageDTO.fromJson(jsonDecode(data));
+        } else {
+          message = MessageDTO(
+            sender: 'sender',
+            content: data,
+            timestamp: DateTime.now(),
+          );
+        }
+        message = MessageDTO(
+          sender: 'sender',
+          content: message.content,
+          timestamp: message.timestamp,
+        );
         _controller.add(message);
       },
       onError: (e) => _controller.addError(e),

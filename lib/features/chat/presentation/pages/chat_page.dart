@@ -1,10 +1,14 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:market_test_project/core/theme/app_colors.dart';
 import 'package:market_test_project/core/widgets/app_circle_button.dart';
+import 'package:market_test_project/features/chat/domain/entities/message_entity.dart';
 import 'package:market_test_project/features/chat/presentation/bloc/chat_bloc.dart';
 import 'package:market_test_project/features/chat/presentation/bloc/chat_event.dart';
+import 'package:market_test_project/features/chat/presentation/bloc/chat_state.dart';
+import 'package:market_test_project/features/chat/presentation/widgets/chat_message_widget.dart';
 import 'package:market_test_project/gen/assets.gen.dart';
 
 @RoutePage()
@@ -21,8 +25,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     _chatBloc.add(ConnectToChat());
+    _chatBloc.add(ConnectChat());
     super.initState();
   }
+
+  List<MessageEntity> messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +41,27 @@ class _ChatPageState extends State<ChatPage> {
           child: Column(
             children: [
               Expanded(
-                child: StreamBuilder(
-                  stream: _chatBloc.repository.listenMessages(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Text('Нет сообщений');
-                    return Text(snapshot.data!.content);
+                child: BlocConsumer(
+                  bloc: _chatBloc,
+                  listener: (context, state) {
+                    if (state is ChatMessageReceived) {
+                      messages.add(state.message);
+                    }
+                  },
+                  builder: (context, state) {
+                    return SingleChildScrollView(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          for (int i = 0; i < messages.length; i++)
+                            ChatMessageWidget(
+                              message: messages[i].content,
+                              timestamp: messages[i].timestamp,
+                              isMe: messages[i].sender == 'me',
+                            ),
+                        ],
+                      ),
+                    );
                   },
                 ),
               ),
@@ -65,8 +88,13 @@ class _ChatPageState extends State<ChatPage> {
                       buttonSize: 46,
                       radius: 12,
                       backgroundColor: ColorStyles.crimson400,
-                      onTap: () =>
-                          _chatBloc.add(SendChatMessage(controller.text)),
+                      onTap: () {
+                        messages.add(
+                          MessageEntity('me', controller.text, DateTime.now()),
+                        );
+                        _chatBloc.add(SendChatMessage(controller.text));
+                        controller.clear();
+                      },
                     ),
                   ],
                 ),

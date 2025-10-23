@@ -35,6 +35,6 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<void> connectToChat() async {
-    await socketService.connect('wss://${ApiPath.baseUrl}${ApiPath.chat}');
+    await socketService.connect(ApiPath.chat);
   }
 }

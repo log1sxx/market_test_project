@@ -35,6 +35,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ConnectToChat>((event, emit) async {
       await connectToChatUsecase();
     });
+
+    on<ReceiveMessageEvent>((event, emit) {
+      emit(ChatMessageReceived(event.message));
+    });
   }
 
   @override
