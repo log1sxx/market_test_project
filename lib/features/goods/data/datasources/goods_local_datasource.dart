@@ -9,9 +9,9 @@ abstract class GoodsLocalDatasource {
 }
 
 @LazySingleton(as: GoodsLocalDatasource)
-class GoodsRemoteDatasourceImpl implements GoodsLocalDatasource {
+class GoodsLocalDatasourceImpl implements GoodsLocalDatasource {
   final SharedPreferences sharedPreferences;
-  GoodsRemoteDatasourceImpl(this.sharedPreferences);
+  GoodsLocalDatasourceImpl(this.sharedPreferences);
 
   @override
   ProductsDTO getProducts() {

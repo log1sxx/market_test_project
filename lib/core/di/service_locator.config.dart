@@ -79,6 +79,8 @@ import 'package:market_test_project/features/goods/domain/usecases/get_products_
     as _i305;
 import 'package:market_test_project/features/goods/presentation/bloc/products_cubit.dart'
     as _i257;
+import 'package:market_test_project/features/history/data/datasources/history_local_datasource.dart'
+    as _i515;
 import 'package:market_test_project/features/history/data/datasources/history_remote_datasource.dart'
     as _i723;
 import 'package:market_test_project/features/history/data/repositories/histories_repository_impl.dart'
@@ -134,17 +136,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1008.BannersRemoteDatasourceImpl(gh<_i361.Dio>()),
     );
     gh.factory<_i888.ApiClient>(() => _i888.ApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i172.GoodsLocalDatasource>(
-      () => _i172.GoodsRemoteDatasourceImpl(gh<_i460.SharedPreferences>()),
-    );
-    gh.factory<_i78.ProductsRepository>(
-      () => _i645.ProductsRepositoryImpl(
-        gh<_i718.GoodsRemoteDatasource>(),
-        gh<_i172.GoodsLocalDatasource>(),
-        gh<_i460.SharedPreferences>(),
-        gh<_i973.InternetConnectionChecker>(),
-      ),
-    );
     gh.lazySingleton<_i220.NotificationRepository>(
       () => _i880.NotificationRepositoryImpl(gh<_i911.FCMRemoteSource>()),
     );
@@ -160,6 +151,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i310.SendMessage>(
       () => _i310.SendMessage(gh<_i638.ChatRepository>()),
     );
+    gh.lazySingleton<_i172.GoodsLocalDatasource>(
+      () => _i172.GoodsLocalDatasourceImpl(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i515.HistoriesLocalDatasource>(
+      () => _i515.HistoriesLocalDatasourceImpl(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i926.BannersLocalDatasource>(
       () => _i926.BannersRemoteDatasourceImpl(gh<_i460.SharedPreferences>()),
     );
@@ -167,9 +164,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i623.LocalNotificationsServiceImpl(
         gh<_i163.FlutterLocalNotificationsPlugin>(),
       ),
-    );
-    gh.factory<_i6.HistoriesRepository>(
-      () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
     );
     gh.factory<_i332.BannersRepository>(
       () => _i1036.BannersRepositoryImpl(
@@ -179,20 +173,27 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i460.SharedPreferences>(),
       ),
     );
-    gh.factory<_i305.GetProductsUsecase>(
-      () => _i305.GetProductsUsecase(gh<_i78.ProductsRepository>()),
-    );
-    gh.factory<_i250.GetHistoriesUsecase>(
-      () => _i250.GetHistoriesUsecase(gh<_i6.HistoriesRepository>()),
-    );
     gh.factory<_i441.GetFcmToken>(
       () => _i441.GetFcmToken(gh<_i220.NotificationRepository>()),
     );
     gh.factory<_i66.OnMessageReceived>(
       () => _i66.OnMessageReceived(gh<_i220.NotificationRepository>()),
     );
-    gh.singleton<_i257.ProductsCubit>(
-      () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
+    gh.factory<_i78.ProductsRepository>(
+      () => _i645.ProductsRepositoryImpl(
+        gh<_i718.GoodsRemoteDatasource>(),
+        gh<_i172.GoodsLocalDatasource>(),
+        gh<_i460.SharedPreferences>(),
+        gh<_i973.InternetConnectionChecker>(),
+      ),
+    );
+    gh.factory<_i6.HistoriesRepository>(
+      () => _i453.HistoriesRepositoryImpl(
+        gh<_i723.HistoryRemoteDatasource>(),
+        gh<_i515.HistoriesLocalDatasource>(),
+        gh<_i460.SharedPreferences>(),
+        gh<_i973.InternetConnectionChecker>(),
+      ),
     );
     gh.factory<_i6.InitLocalNotificationsUsecase>(
       () => _i6.InitLocalNotificationsUsecase(
@@ -212,17 +213,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i609.GetBannerUsecase>(
       () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
     );
-    gh.singleton<_i158.HistoriesCubit>(
-      () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),
-    );
     gh.singleton<_i789.NotificationBloc>(
       () => _i789.NotificationBloc(
         gh<_i441.GetFcmToken>(),
         gh<_i66.OnMessageReceived>(),
       ),
     );
+    gh.factory<_i305.GetProductsUsecase>(
+      () => _i305.GetProductsUsecase(gh<_i78.ProductsRepository>()),
+    );
+    gh.factory<_i250.GetHistoriesUsecase>(
+      () => _i250.GetHistoriesUsecase(gh<_i6.HistoriesRepository>()),
+    );
     gh.singleton<_i228.BannersCubit>(
       () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
+    );
+    gh.singleton<_i257.ProductsCubit>(
+      () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
+    );
+    gh.singleton<_i158.HistoriesCubit>(
+      () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),
     );
     return this;
   }

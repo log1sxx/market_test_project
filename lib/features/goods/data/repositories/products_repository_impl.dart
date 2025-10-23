@@ -28,7 +28,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
     if (await connectionChecker.hasConnection) {
       productsDTO = await remote.getProducts();
       await sharedPreferences.setString(
-        'cached_products',
+        'products_dto',
         jsonEncode(productsDTO.toJson()),
       );
     } else {
