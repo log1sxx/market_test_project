@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger/logger.dart' as _i974;
@@ -43,14 +45,22 @@ import 'package:market_test_project/features/chat/presentation/bloc/chat_bloc.da
     as _i613;
 import 'package:market_test_project/features/fcm_notifications/data/datasources/fcm_remote_source.dart'
     as _i911;
+import 'package:market_test_project/features/fcm_notifications/data/repositories/local_notifications_service_impl.dart'
+    as _i623;
 import 'package:market_test_project/features/fcm_notifications/data/repositories/notification_repository_Impl.dart'
     as _i880;
+import 'package:market_test_project/features/fcm_notifications/domain/repositories/local_notifications_repository.dart'
+    as _i106;
 import 'package:market_test_project/features/fcm_notifications/domain/repositories/notification_repository.dart'
     as _i220;
 import 'package:market_test_project/features/fcm_notifications/domain/usecases/get_fcm_token_usecase.dart'
     as _i441;
+import 'package:market_test_project/features/fcm_notifications/domain/usecases/init_local_notifications_usecase.dart'
+    as _i6;
 import 'package:market_test_project/features/fcm_notifications/domain/usecases/on_message_received_usecase.dart'
     as _i66;
+import 'package:market_test_project/features/fcm_notifications/domain/usecases/show_notification_usecase.dart'
+    as _i583;
 import 'package:market_test_project/features/fcm_notifications/presentation/bloc/notifications_bloc.dart'
     as _i789;
 import 'package:market_test_project/features/goods/data/datasources/goods_remote_datasource.dart'
@@ -84,6 +94,8 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final sharedPreferencesModule = _$SharedPreferencesModule();
     final firebaseMessagingModule = _$FirebaseMessagingModule();
+    final flutterLocalNotificationsPluginModule =
+        _$FlutterLocalNotificationsPluginModule();
     final loggerModule = _$LoggerModule();
     final dioModule = _$DioModule();
     await gh.singletonAsync<_i460.SharedPreferences>(
@@ -91,6 +103,10 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i892.FirebaseMessaging>(() => firebaseMessagingModule.fm);
+    gh.singleton<_i163.FlutterLocalNotificationsPlugin>(
+      () =>
+          flutterLocalNotificationsPluginModule.flutterLocalNotificationsPlugin,
+    );
     gh.singleton<_i974.Logger>(() => loggerModule.logger());
     gh.singleton<_i203.AppRouter>(() => _i203.AppRouter());
     gh.singleton<_i1030.WebSocketService>(() => _i1030.WebSocketService());
@@ -129,6 +145,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i310.SendMessage>(
       () => _i310.SendMessage(gh<_i638.ChatRepository>()),
     );
+    gh.lazySingleton<_i106.LocalNotificationsRepository>(
+      () => _i623.LocalNotificationsServiceImpl(
+        gh<_i163.FlutterLocalNotificationsPlugin>(),
+      ),
+    );
     gh.factory<_i6.HistoriesRepository>(
       () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
     );
@@ -153,6 +174,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i257.ProductsCubit>(
       () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
     );
+    gh.factory<_i6.InitLocalNotificationsUsecase>(
+      () => _i6.InitLocalNotificationsUsecase(
+        gh<_i106.LocalNotificationsRepository>(),
+      ),
+    );
+    gh.factory<_i583.ShowNotification>(
+      () => _i583.ShowNotification(gh<_i106.LocalNotificationsRepository>()),
+    );
     gh.singleton<_i613.ChatBloc>(
       () => _i613.ChatBloc(
         sendMessage: gh<_i310.SendMessage>(),
@@ -176,6 +205,9 @@ extension GetItInjectableX on _i174.GetIt {
 class _$SharedPreferencesModule extends _i450.SharedPreferencesModule {}
 
 class _$FirebaseMessagingModule extends _i450.FirebaseMessagingModule {}
+
+class _$FlutterLocalNotificationsPluginModule
+    extends _i450.FlutterLocalNotificationsPluginModule {}
 
 class _$LoggerModule extends _i450.LoggerModule {}
 
