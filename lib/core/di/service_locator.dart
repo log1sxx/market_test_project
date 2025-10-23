@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -16,6 +17,12 @@ abstract class SharedPreferencesModule {
   @singleton
   @preResolve
   Future<SharedPreferences> get sp => SharedPreferences.getInstance();
+}
+
+@module
+abstract class FirebaseMessagingModule {
+  @singleton
+  FirebaseMessaging get fm => FirebaseMessaging.instance;
 }
 
 @module

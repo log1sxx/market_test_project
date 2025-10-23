@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger/logger.dart' as _i974;
@@ -40,6 +41,18 @@ import 'package:market_test_project/features/chat/domain/usecases/send_message_u
     as _i310;
 import 'package:market_test_project/features/chat/presentation/bloc/chat_bloc.dart'
     as _i613;
+import 'package:market_test_project/features/fcm_notifications/data/datasources/fcm_remote_source.dart'
+    as _i911;
+import 'package:market_test_project/features/fcm_notifications/data/repositories/notification_repository_Impl.dart'
+    as _i880;
+import 'package:market_test_project/features/fcm_notifications/domain/repositories/notification_repository.dart'
+    as _i220;
+import 'package:market_test_project/features/fcm_notifications/domain/usecases/get_fcm_token_usecase.dart'
+    as _i441;
+import 'package:market_test_project/features/fcm_notifications/domain/usecases/on_message_received_usecase.dart'
+    as _i66;
+import 'package:market_test_project/features/fcm_notifications/presentation/bloc/notifications_bloc.dart'
+    as _i789;
 import 'package:market_test_project/features/goods/data/datasources/goods_remote_datasource.dart'
     as _i718;
 import 'package:market_test_project/features/goods/data/repositories/products_repository_impl.dart'
@@ -70,18 +83,23 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final sharedPreferencesModule = _$SharedPreferencesModule();
+    final firebaseMessagingModule = _$FirebaseMessagingModule();
     final loggerModule = _$LoggerModule();
     final dioModule = _$DioModule();
     await gh.singletonAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.sp,
       preResolve: true,
     );
+    gh.singleton<_i892.FirebaseMessaging>(() => firebaseMessagingModule.fm);
     gh.singleton<_i974.Logger>(() => loggerModule.logger());
     gh.singleton<_i203.AppRouter>(() => _i203.AppRouter());
     gh.singleton<_i1030.WebSocketService>(() => _i1030.WebSocketService());
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
     gh.lazySingleton<_i718.GoodsRemoteDatasource>(
       () => _i718.GoodsRemoteDatasourceImpl(gh<_i361.Dio>()),
+    );
+    gh.factory<_i911.FCMRemoteSource>(
+      () => _i911.FCMRemoteSource(gh<_i892.FirebaseMessaging>()),
     );
     gh.lazySingleton<_i723.HistoryRemoteDatasource>(
       () => _i723.HistoryRemoteDatasourceImpl(gh<_i361.Dio>()),
@@ -96,17 +114,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i78.ProductsRepository>(
       () => _i645.ProductsRepositoryImpl(gh<_i718.GoodsRemoteDatasource>()),
     );
+    gh.lazySingleton<_i220.NotificationRepository>(
+      () => _i880.NotificationRepositoryImpl(gh<_i911.FCMRemoteSource>()),
+    );
     gh.lazySingleton<_i638.ChatRepository>(
       () => _i869.ChatRepositoryImpl(gh<_i1030.WebSocketService>()),
-    );
-    gh.factory<_i310.SendMessage>(
-      () => _i310.SendMessage(gh<_i638.ChatRepository>()),
     );
     gh.factory<_i267.ConnectToChatUsecase>(
       () => _i267.ConnectToChatUsecase(gh<_i638.ChatRepository>()),
     );
     gh.factory<_i175.ListenMessagesUsecase>(
       () => _i175.ListenMessagesUsecase(gh<_i638.ChatRepository>()),
+    );
+    gh.factory<_i310.SendMessage>(
+      () => _i310.SendMessage(gh<_i638.ChatRepository>()),
     );
     gh.factory<_i6.HistoriesRepository>(
       () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
@@ -123,6 +144,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i228.BannersCubit>(
       () => _i228.BannersCubit(gh<_i609.GetBannerUsecase>()),
     );
+    gh.factory<_i441.GetFcmToken>(
+      () => _i441.GetFcmToken(gh<_i220.NotificationRepository>()),
+    );
+    gh.factory<_i66.OnMessageReceived>(
+      () => _i66.OnMessageReceived(gh<_i220.NotificationRepository>()),
+    );
     gh.singleton<_i257.ProductsCubit>(
       () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
     );
@@ -136,11 +163,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i158.HistoriesCubit>(
       () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),
     );
+    gh.singleton<_i789.NotificationBloc>(
+      () => _i789.NotificationBloc(
+        gh<_i441.GetFcmToken>(),
+        gh<_i66.OnMessageReceived>(),
+      ),
+    );
     return this;
   }
 }
 
 class _$SharedPreferencesModule extends _i450.SharedPreferencesModule {}
+
+class _$FirebaseMessagingModule extends _i450.FirebaseMessagingModule {}
 
 class _$LoggerModule extends _i450.LoggerModule {}
 
