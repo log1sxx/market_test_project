@@ -6,6 +6,7 @@ import 'package:market_test_project/features/goods/domain/entities/product_entit
 import 'package:market_test_project/features/goods/presentation/bloc/products_cubit.dart';
 import 'package:market_test_project/features/goods/presentation/bloc/products_state.dart';
 import 'package:market_test_project/features/goods/presentation/widgets/product_card_widget.dart';
+import 'package:market_test_project/features/goods/presentation/widgets/products_title.dart';
 
 class ProductsHorizontalList extends StatefulWidget {
   const ProductsHorizontalList({super.key});
@@ -30,10 +31,16 @@ class _ProductsHorizontalListState extends State<ProductsHorizontalList> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is ProductsLoaded) {
-          return AppHorizontalList<ProductEntity>(
-            items: state.products,
-            itemBuilder: (context, item, index) =>
-                ProductCardWidget(product: item),
+          return Column(
+            children: [
+              const ProductsTitle(),
+              const SizedBox(height: 10),
+              AppHorizontalList<ProductEntity>(
+                items: state.products,
+                itemBuilder: (context, item, index) =>
+                    ProductCardWidget(product: item),
+              ),
+            ],
           );
         }
         return SizedBox(

@@ -8,3 +8,7 @@ class NotificationLoaded extends NotificationState {
   final NotificationEntity notification;
   NotificationLoaded(this.notification);
 }
+
+class InitNotificationsError extends NotificationState {}
+
+class InitNotificationsNetworkError extends NotificationState {}

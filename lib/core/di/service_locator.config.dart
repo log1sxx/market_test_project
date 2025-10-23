@@ -210,14 +210,15 @@ extension GetItInjectableX on _i174.GetIt {
         connectToChatUsecase: gh<_i267.ConnectToChatUsecase>(),
       ),
     );
-    gh.factory<_i609.GetBannerUsecase>(
-      () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
-    );
     gh.singleton<_i789.NotificationBloc>(
       () => _i789.NotificationBloc(
         gh<_i441.GetFcmToken>(),
         gh<_i66.OnMessageReceived>(),
+        gh<_i973.InternetConnectionChecker>(),
       ),
+    );
+    gh.factory<_i609.GetBannerUsecase>(
+      () => _i609.GetBannerUsecase(gh<_i332.BannersRepository>()),
     );
     gh.factory<_i305.GetProductsUsecase>(
       () => _i305.GetProductsUsecase(gh<_i78.ProductsRepository>()),
