@@ -27,6 +27,38 @@ class AppRootRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChatPage]
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute({List<PageRouteInfo>? children})
+    : super(ChatRoute.name, initialChildren: children);
+
+  static const String name = 'ChatRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChatPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ChatRouterPage]
+class ChatRouter extends PageRouteInfo<void> {
+  const ChatRouter({List<PageRouteInfo>? children})
+    : super(ChatRouter.name, initialChildren: children);
+
+  static const String name = 'ChatRouter';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChatRouterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeRouterPage]
 class HomeRouter extends PageRouteInfo<void> {
   const HomeRouter({List<PageRouteInfo>? children})

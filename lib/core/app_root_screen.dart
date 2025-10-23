@@ -19,11 +19,11 @@ class AppRootScreen extends StatefulWidget {
 
 class _AppRootScreenState extends State<AppRootScreen> {
   final routes = [
-    const HomeRoute(),
-    const HomeRoute(),
-    const HomeRoute(),
-    const HomeRoute(),
-    const HomeRoute(),
+    const HomeRouter(),
+    const HomeRouter(),
+    const HomeRouter(),
+    const HomeRouter(),
+    const ChatRouter(),
   ];
   final _icons = [
     Assets.icons.navBarIcons.mainNavBarIcon,

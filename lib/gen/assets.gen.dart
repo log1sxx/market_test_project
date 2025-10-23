@@ -61,8 +61,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/profile.svg
   SvgGenImage get profile => const SvgGenImage('assets/icons/profile.svg');
 
+  /// File path: assets/icons/send.svg
+  SvgGenImage get send => const SvgGenImage('assets/icons/send.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [addToCard, bell, fire, mark, profile];
+  List<SvgGenImage> get values => [addToCard, bell, fire, mark, profile, send];
 }
 
 class $AssetsImagesGen {

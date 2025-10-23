@@ -3,4 +3,5 @@ class ApiPath {
   static const banners = '/udachny/banners.json';
   static const products = '/udachny/products.json';
   static const histories = '/udachny/story.json';
+  static const chat = '/udachny/chat';
 }

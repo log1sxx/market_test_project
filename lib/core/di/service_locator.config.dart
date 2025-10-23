@@ -26,6 +26,20 @@ import 'package:market_test_project/features/banners/domain/usecases/get_banner_
     as _i609;
 import 'package:market_test_project/features/banners/presentation/bloc/banners_cubit.dart'
     as _i228;
+import 'package:market_test_project/features/chat/data/datasources/websocket_service.dart'
+    as _i1030;
+import 'package:market_test_project/features/chat/data/repositories/chat_repository_impl.dart'
+    as _i869;
+import 'package:market_test_project/features/chat/domain/repositories/chat_repository.dart'
+    as _i638;
+import 'package:market_test_project/features/chat/domain/usecases/connect_to_chat_usecase.dart'
+    as _i267;
+import 'package:market_test_project/features/chat/domain/usecases/listen_messages_usecase.dart'
+    as _i175;
+import 'package:market_test_project/features/chat/domain/usecases/send_message_usecase.dart'
+    as _i310;
+import 'package:market_test_project/features/chat/presentation/bloc/chat_bloc.dart'
+    as _i613;
 import 'package:market_test_project/features/goods/data/datasources/goods_remote_datasource.dart'
     as _i718;
 import 'package:market_test_project/features/goods/data/repositories/products_repository_impl.dart'
@@ -64,6 +78,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i974.Logger>(() => loggerModule.logger());
     gh.singleton<_i203.AppRouter>(() => _i203.AppRouter());
+    gh.singleton<_i1030.WebSocketService>(() => _i1030.WebSocketService());
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
     gh.lazySingleton<_i718.GoodsRemoteDatasource>(
       () => _i718.GoodsRemoteDatasourceImpl(gh<_i361.Dio>()),
@@ -80,6 +95,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i78.ProductsRepository>(
       () => _i645.ProductsRepositoryImpl(gh<_i718.GoodsRemoteDatasource>()),
+    );
+    gh.lazySingleton<_i638.ChatRepository>(
+      () => _i869.ChatRepositoryImpl(gh<_i1030.WebSocketService>()),
+    );
+    gh.factory<_i310.SendMessage>(
+      () => _i310.SendMessage(gh<_i638.ChatRepository>()),
+    );
+    gh.factory<_i267.ConnectToChatUsecase>(
+      () => _i267.ConnectToChatUsecase(gh<_i638.ChatRepository>()),
+    );
+    gh.factory<_i175.ListenMessagesUsecase>(
+      () => _i175.ListenMessagesUsecase(gh<_i638.ChatRepository>()),
     );
     gh.factory<_i6.HistoriesRepository>(
       () => _i453.HistoriesRepositoryImpl(gh<_i723.HistoryRemoteDatasource>()),
@@ -98,6 +125,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i257.ProductsCubit>(
       () => _i257.ProductsCubit(gh<_i305.GetProductsUsecase>()),
+    );
+    gh.singleton<_i613.ChatBloc>(
+      () => _i613.ChatBloc(
+        sendMessage: gh<_i310.SendMessage>(),
+        repository: gh<_i638.ChatRepository>(),
+        connectToChatUsecase: gh<_i267.ConnectToChatUsecase>(),
+      ),
     );
     gh.singleton<_i158.HistoriesCubit>(
       () => _i158.HistoriesCubit(gh<_i250.GetHistoriesUsecase>()),

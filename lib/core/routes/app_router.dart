@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
 import 'package:market_test_project/core/app_root_screen.dart';
+import 'package:market_test_project/features/chat/presentation/pages/chat_page.dart';
 import 'package:market_test_project/features/home/presentation/pages/home_screen.dart';
 
 part 'app_router.gr.dart';
@@ -21,6 +22,11 @@ class AppRouter extends RootStackRouter {
             path: 'home',
             children: [AutoRoute(page: HomeRoute.page, path: '')],
           ),
+          AutoRoute(
+            page: ChatRouter.page,
+            path: 'chat',
+            children: [AutoRoute(page: ChatRoute.page, path: '')],
+          ),
         ],
       ),
     ];
@@ -30,4 +36,9 @@ class AppRouter extends RootStackRouter {
 @RoutePage(name: 'HomeRouter')
 class HomeRouterPage extends AutoRouter {
   const HomeRouterPage({super.key});
+}
+
+@RoutePage(name: 'ChatRouter')
+class ChatRouterPage extends AutoRouter {
+  const ChatRouterPage({super.key});
 }
