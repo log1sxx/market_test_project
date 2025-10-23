@@ -67,6 +67,8 @@ import 'package:market_test_project/features/fcm_notifications/domain/usecases/s
     as _i583;
 import 'package:market_test_project/features/fcm_notifications/presentation/bloc/notifications_bloc.dart'
     as _i789;
+import 'package:market_test_project/features/goods/data/datasources/goods_local_datasource.dart'
+    as _i172;
 import 'package:market_test_project/features/goods/data/datasources/goods_remote_datasource.dart'
     as _i718;
 import 'package:market_test_project/features/goods/data/repositories/products_repository_impl.dart'
@@ -132,8 +134,16 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1008.BannersRemoteDatasourceImpl(gh<_i361.Dio>()),
     );
     gh.factory<_i888.ApiClient>(() => _i888.ApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i172.GoodsLocalDatasource>(
+      () => _i172.GoodsRemoteDatasourceImpl(gh<_i460.SharedPreferences>()),
+    );
     gh.factory<_i78.ProductsRepository>(
-      () => _i645.ProductsRepositoryImpl(gh<_i718.GoodsRemoteDatasource>()),
+      () => _i645.ProductsRepositoryImpl(
+        gh<_i718.GoodsRemoteDatasource>(),
+        gh<_i172.GoodsLocalDatasource>(),
+        gh<_i460.SharedPreferences>(),
+        gh<_i973.InternetConnectionChecker>(),
+      ),
     );
     gh.lazySingleton<_i220.NotificationRepository>(
       () => _i880.NotificationRepositoryImpl(gh<_i911.FCMRemoteSource>()),
